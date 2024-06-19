@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -31,10 +29,10 @@ public class StepDefinitions {
         driver.manage().window().maximize();
     }
 
-//    @After
-//    public void closeBrowser() {
-//        driver.quit();
-//    }
+    @After
+    public void closeBrowser() {
+        driver.quit();
+    }
 
     @Given("I am logged")
     public void iAmLogged() {
