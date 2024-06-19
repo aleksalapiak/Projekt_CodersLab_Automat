@@ -10,8 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 //import static org.junit.Assert.assertTrue;
 
 
@@ -19,7 +21,7 @@ public class StepDefinitions {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    String alias, firstname, lastname, company, address, city, postcode, phone;
+    String alias, firstname, lastname, company, address, city, postcode, country, phone;
 
 
     @Before
@@ -64,8 +66,8 @@ public class StepDefinitions {
         wait.until(ExpectedConditions.urlContains("controller=address"));
     }
 
-    @When("I enter {string} as alias and enter {string} as first name and enter {string} as last name and  enter {string} as company and  enter {string} as address and  enter {string} as city and  enter {string} as postcode and  enter {string} as phone")
-    public void iEnterAsAliasAndEnterAsFirstNameAndEnterAsLastNameAndEnterAsCompanyAndEnterAsAddressAndEnterAsCityAndEnterAsPostcodeAndEnterAsPhone(String alias, String firstname, String lastname, String company, String address, String city, String postcode, String phone) {
+    @When("I enter {string} as alias and enter {string} as first name and enter {string} as last name and  enter {string} as company and  enter {string} as address and  enter {string} as city and  enter {string} as postcode and  enter {string} as country and  enter {string} as phone")
+    public void iEnterAsAliasAndEnterAsFirstNameAndEnterAsLastNameAndEnterAsCompanyAndEnterAsAddressAndEnterAsCityAndEnterAsPostcodeAndEnterAsCountryAndEnterAsPhone(String alias, String firstname, String lastname, String company, String address, String city, String postcode, String country, String phone) {
         this.alias = alias;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -73,6 +75,7 @@ public class StepDefinitions {
         this.address = address;
         this.city = city;
         this.postcode = postcode;
+        this.country = country;
         this.phone = phone;
 
         WebElement element = driver.findElement(By.cssSelector("input[name=alias]"));
@@ -104,6 +107,19 @@ public class StepDefinitions {
         element = driver.findElement(By.cssSelector("input[name=postcode]"));
         element.sendKeys(postcode);
         assertEquals(postcode, element.getAttribute("value"));
+
+        WebElement countryDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("field-id_country")));
+        Select select = new Select(countryDropdown);
+        select.selectByVisibleText(country);
+
+        boolean isSelected = false;
+        for (WebElement option : select.getOptions()) {
+            if (option.getText().equals(country) && option.isSelected()) {
+                isSelected = true;
+                break;
+            }
+        }
+        assertTrue(isSelected);
 
         element = driver.findElement(By.cssSelector("input[name=phone]"));
         element.sendKeys(phone);
