@@ -39,17 +39,21 @@ public class StepDefinitions2 {
     }
 
     @After
-    public void tearDown() {
-        try {
-            takeScreenshot("screenshot.png");
-        } catch (Exception e) {
-            System.out.println("Exception while taking screenshot: " + e.getMessage());
-        } finally {
-            if (driver != null) {
-                driver.quit();
-            }
-        }
+    public void closeBrowser() {
+        driver.quit();
     }
+//    @After
+//    public void tearDown() {
+////        try {
+////            takeScreenshot("screenshot.png");
+////        } catch (Exception e) {
+////            System.out.println("Exception while taking screenshot: " + e.getMessage());
+////        } finally {
+//            if (driver != null) {
+//                driver.quit();
+////            }
+//        }
+//    }
 
     public void takeScreenshot(String filePath) throws Exception {
         Robot robot = new Robot();
@@ -58,7 +62,7 @@ public class StepDefinitions2 {
         BufferedImage image = robot.createScreenCapture(screenRectangle);
         ImageIO.write(image, "png", new File(filePath));
         System.out.println("Screenshot saved: " + filePath);
-}
+    }
 
     @Given("the user is logged in")
     public void theUserIsLoggedIn() {
@@ -163,5 +167,10 @@ public class StepDefinitions2 {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#content-hook_order_confirmation")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".total-value.font-weight-bold")));
         wait.until(ExpectedConditions.urlContains("controller=order-confirmation"));
+        try {
+            takeScreenshot("screenshot.png");
+        } catch (Exception e) {
+            System.out.println("Exception while taking screenshot: " + e.getMessage());
         }
     }
+}
