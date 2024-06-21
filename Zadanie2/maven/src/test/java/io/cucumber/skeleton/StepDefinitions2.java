@@ -42,18 +42,7 @@ public class StepDefinitions2 {
     public void closeBrowser() {
         driver.quit();
     }
-//    @After
-//    public void tearDown() {
-////        try {
-////            takeScreenshot("screenshot.png");
-////        } catch (Exception e) {
-////            System.out.println("Exception while taking screenshot: " + e.getMessage());
-////        } finally {
-//            if (driver != null) {
-//                driver.quit();
-////            }
-//        }
-//    }
+
 
     public void takeScreenshot(String filePath) throws Exception {
         Robot robot = new Robot();
