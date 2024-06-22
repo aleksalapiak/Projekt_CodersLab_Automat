@@ -89,11 +89,11 @@ public class StepDefinitions2 {
     @And("the user selects quantity {int}")
     public void theUserSelectsQuantity(Integer quantity) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement element = driver.findElement(By.id("quantity_wanted"));
-        element.clear();
+//        WebElement element = driver.findElement(By.id("quantity_wanted"));
+//        element.clear();
         WebElement increaseButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn-touchspin.js-touchspin.bootstrap-touchspin-up")));
         for (int i = 1; i < quantity; i++) {
-            increaseButton.click();
+            wait.until(ExpectedConditions.elementToBeClickable(increaseButton)).click();
         }
     }
 
